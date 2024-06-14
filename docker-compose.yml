@@ -1,0 +1,42 @@
+services:
+  task_scheduler:
+      build:
+        dockerfile: ./docker/Dockerfile
+      container_name: task_scheduler
+      env_file:
+        - ./.env
+      networks:
+        - task-scheduler-django
+      ports:
+        - "8000:8000"
+      expose:
+        - 8000
+      volumes:
+        - task_scheduler_data:/app
+      depends_on:
+        task-scheduler-db:
+          condition: service_healthy
+
+  task-scheduler-db:
+    image: postgres:13
+    container_name: task-scheduler-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=task_scheduler
+    networks:
+      - task-scheduler-django
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  task_scheduler_data:
+networks:
+    task-scheduler-django:
+      external: true

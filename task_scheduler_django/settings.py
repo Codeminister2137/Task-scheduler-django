@@ -1,3 +1,4 @@
+from os import environ
 """
 Django settings for task_scheduler_django project.
 
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a+=m!1&*g(w91jew6h2vr*k8x6l%p4unl(fl&&x2aoaa%o!b0^'
+SECRET_KEY = environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS", "*" if DEBUG == 0 else "").split(" ")
 
 
 # Application definition
