@@ -1,8 +1,8 @@
 services:
-  task_scheduler:
+  task-scheduler:
       build:
         dockerfile: ./docker/Dockerfile
-      container_name: task_scheduler
+      container_name: task-scheduler
       env_file:
         - ./.env
       networks:
@@ -13,30 +13,47 @@ services:
         - 8000
       volumes:
         - task_scheduler_data:/app
+      command: poetry run python manage.py runserver 0.0.0.0:8000
       depends_on:
         task-scheduler-db:
           condition: service_healthy
 
+
   task-scheduler-db:
     image: postgres:13
     container_name: task-scheduler-db
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=task_scheduler
+    env_file:
+      - ./.env
     networks:
       - task-scheduler-django
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready", "-U", "$$POSTGRES_USER", "-d", "$&POSTGRES_DB"]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "5001:80"
+    depends_on:
+      - task-scheduler-db
+    networks:
+      - task-scheduler-django
+
 
 volumes:
   postgres_data:
   task_scheduler_data:
 networks:
     task-scheduler-django:
-      external: true
+#      ipv4_address: 172.16.238.10

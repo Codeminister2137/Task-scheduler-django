@@ -6,8 +6,10 @@ ENV PYTHONUNBUFFERED 1
 
 RUN pip install poetry
 
-
-COPY . .
+COPY pyproject.toml poetry.lock ./
 
 RUN poetry install
-ENTRYPOINT ["poetry", "run", "python", "manage.py", "runserver", "localhost:8000"]
+COPY . .
+
+RUN chmod 600 .my_pgpass
+RUN chmod 0640 .pg_service.conf
