@@ -52,3 +52,9 @@ migrate: ## migrate database
 .PHONY: test
 test: # run tests
 	@ ($(DOCKER_COMPOSE) exec -it $(BACKEND) poetry run python manage.py test)
+
+.PHONY: build-test
+build-test: build test # build and run tests
+
+.PHONY: stop-build-test
+stop-build-test: stop build test # build and run tests
