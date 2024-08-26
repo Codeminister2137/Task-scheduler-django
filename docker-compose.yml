@@ -11,8 +11,8 @@ services:
         - "8000:8000"
       expose:
         - 8000
-      volumes:
-        - task_scheduler_data:/app
+#      volumes:
+#        - task_scheduler_data:/app
       command: poetry run python manage.py runserver 0.0.0.0:8000
       depends_on:
         task-scheduler-db:
@@ -26,8 +26,8 @@ services:
       - ./.env
     networks:
       - task-scheduler-django
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
     healthcheck:
@@ -51,9 +51,9 @@ services:
       - task-scheduler-django
 
 
-volumes:
-  postgres_data:
-  task_scheduler_data:
+#volumes:
+#  postgres_data:
+#  task_scheduler_data:
 networks:
     task-scheduler-django:
 #      ipv4_address: 172.16.238.10
