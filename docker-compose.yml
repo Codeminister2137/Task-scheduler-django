@@ -6,6 +6,8 @@ services:
       - POSTGRES_USER=tutorial
       - POSTGRES_PASSWORD=tutorial
       - POSTGRES_DB=tutorial
+    ports:
+      - "5433:5432"
   web:
     build: .
     restart: always
