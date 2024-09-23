@@ -58,6 +58,3 @@ build-test: build test # build and run tests
 
 .PHONY: stop-build-test
 stop-build-test: stop build test # build and run tests
-
-.PHONY: stop-build-start-migration-migrate-test
-stop-build-start-migration-migrate-test: stop build start migration migrate test # build and run tests
