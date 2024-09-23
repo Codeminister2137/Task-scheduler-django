@@ -1,8 +1,8 @@
 include .env
 # Variables
 DOCKER_COMPOSE=docker-compose
-DATABASE=task-scheduler-db
-BACKEND=task-scheduler
+DATABASE=db
+BACKEND=web
 
 
 .PHONY: start
@@ -42,11 +42,11 @@ shell_db: ## open database console
 
 .PHONY: migration
 migration: ## create migration
-	@ ($(DOCKER_COMPOSE) exec -it $(BACKEND) poetry run python manage.py makemigrations)
+	@ ($(DOCKER_COMPOSE) exec -it $(BACKEND) python manage.py makemigrations)
 
 .PHONY: migrate
 migrate: ## migrate database
-	@ ($(DOCKER_COMPOSE) exec -it $(BACKEND) poetry run python manage.py migrate)
+	@ ($(DOCKER_COMPOSE) exec -it $(BACKEND) python manage.py migrate)
 
 
 .PHONY: test
