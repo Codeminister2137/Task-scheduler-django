@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.utils import timezone
 
-from tasks.models import Notification
+from ..calendar_app.models import Notification
 
 
 class NotificationTest(TestCase):
