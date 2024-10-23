@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-clnh%ebyemjugf%%u7o_a_b3@jcpthmq&*hs!jy%d4i$$cb*na'
+SECRET_KEY = 'django-insecure-eq2nd-*!nw@zd68mosk@=+@6-txh41nhy0o8f9gjh!b*8n%&_f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'calendar_app'
+    'email_app'
 ]
 
 MIDDLEWARE = [
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'calendar_service.urls'
+ROOT_URLCONF = 'email_service.urls'
 
 TEMPLATES = [
     {
