@@ -1,13 +1,13 @@
 from django.test import TestCase
 from django.utils import timezone
 
-from ..calendar_app.models import Notification
+from ..email_app.models import email
 
 
-class NotificationTest(TestCase):
+class EmailTest(TestCase):
     def setUp(self):
         test_tz_time = timezone.now()
-        Notification.objects.create(id=1, scheduled_for=test_tz_time, task_id=1)
+        Email.objects.create(id=1, scheduled_for=test_tz_time, task_id=1)
 
     def test_notification_creation(self):
         # ACT
