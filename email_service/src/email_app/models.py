@@ -11,6 +11,7 @@ class BaseModel(models.Model):
 
 # Create your models here.
 class Email(BaseModel):
+
     scheduled_for = models.DateTimeField()
     sender = models.EmailField()
     recipient = models.EmailField()
@@ -18,4 +19,17 @@ class Email(BaseModel):
     body = models.TextField()
     def __str__(self):
         return self.body
+    def event_history(self):
+        return self.events.order_by('-timestamp')
+EVENT_TYPES = [
+    ("created", "Created"), ("sent", "Sent"), ("rejected", "Rejected"), ("attendance_confirmed", "attendance_confirmed"),
+]
 
+class EmailEvent(BaseModel):
+    email = models.ForeignKey(Email, on_delete=models.CASCADE, related_name="events")
+    timestamp = models.DateTimeField(auto_now_add=True)
+    event_type = models.CharField(max_length=20, choices=EVENT_TYPES)
+    changes = models.JSONField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.timestamp}: {self.event_type}"
