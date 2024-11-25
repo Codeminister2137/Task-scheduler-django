@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.core.mail import send_mail
 
 class BaseModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -21,6 +22,9 @@ class Email(BaseModel):
         return self.body
     def event_history(self):
         return self.events.order_by('-timestamp')
+    def send_email(self):
+        send_mail(subject=self.subject, message=self.body, from_email=self.sender, recipient_list=[self.recipient])
+
 EVENT_TYPES = [
     ("created", "Created"), ("sent", "Sent"), ("rejected", "Rejected"), ("attendance_confirmed", "attendance_confirmed"),
 ]
