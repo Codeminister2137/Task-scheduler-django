@@ -7,3 +7,4 @@ psycopg2-binary==2.9.9
 celery[redis]
 django_celery_beat==2.7.0
 django_celery_results==2.5.1
+pytest-django==4.9.0
