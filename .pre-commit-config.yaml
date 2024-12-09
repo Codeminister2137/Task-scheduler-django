@@ -35,9 +35,9 @@ repos:
 #        --wrap-descriptions,
 #        "89",
 #      ]
-- repo: https://github.com/pre-commit/mirrors-prettier
-  rev: v3.0.0
-  hooks:
-  - id: prettier
-    files: '\.html?$'
-    args: ['--write', '--config', '.prettierrc.json']
+#- repo: https://github.com/pre-commit/mirrors-prettier
+#  rev: v3.0.0
+#  hooks:
+#  - id: prettier
+#    files: '\.html?$'
+#    args: ['--write', '--config', '.prettierrc.json']

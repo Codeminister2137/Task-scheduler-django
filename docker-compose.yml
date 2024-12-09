@@ -7,16 +7,16 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      volumes:
-        - auth-db-data:/var/lib/postgresql/data
+    volumes:
+      - auth-db-data:/var/lib/postgresql/data"
 
   calendar-db:
     image: postgres:16
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      volumes:
-        - calendar-db-data:/var/lib/postgresql/data
+    volumes:
+      - calendar-db-data:/var/lib/postgresql/data
 
   email-db:
     image: postgres:16

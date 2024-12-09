@@ -60,4 +60,4 @@ build-test: build test # build and run tests
 stop-build-test: stop build test # build and run tests
 
 .PHONY: rebuild
-stop-build-test: stop build test # build and run tests
+rebuild: stop build start # rebuild and run
