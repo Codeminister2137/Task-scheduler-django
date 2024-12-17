@@ -1,18 +1,24 @@
-from django.test import TestCase
 from datetime import datetime
-from email_service.src.email_app.tasks import send_email
-from email_service.src.email_app.models import Email, EmailEvent
+
+import pytest
+from django.test import TestCase
+
 from email_service.src.email_app.Enums import EventType
+from email_service.src.email_app.models import Email, EmailEvent
 
 
 # Create your tests here.
-
+@pytest.mark.django_db
 class TestEmail(TestCase):
-
     def setUp(self):
-        self.example_email = Email.objects.create(scheduled_for=datetime.now().isoformat(),
-                                             sender="kubajaworski+test1@wp.pl", recipient='kuba2@wp.pl',
-                                             subject='Testing email', content='Testing email')
+        self.example_email = Email.objects.create(
+            scheduled_for=datetime.now().isoformat(),
+            sender="kubajaworski+test1@wp.pl",
+            recipient="kuba2@wp.pl",
+            subject="Testing email",
+            content="Testing email",
+        )
+
     def tearDown(self):
         self.example_email.delete()
 
@@ -25,5 +31,3 @@ class TestEmail(TestCase):
     def test_sending_emails(self):
         self.example_email.send_email()
         assert EmailEvent.objects.filter(event_type=EventType.SENT).exists()
-
-
