@@ -7,18 +7,24 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - auth-db-data:/var/lib/postgresql/data"
 
   calendar-db:
     image: postgres:16
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - calendar-db-data:/var/lib/postgresql/data
 
   email-db:
     image: postgres:16
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - email-db-data:/var/lib/postgresql/data
 
   auth-service:
     build: ./auth_service/
@@ -65,6 +71,11 @@ services:
     depends_on:
       - email-db
 
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
   nginx:
     image: nginx
     volumes:
@@ -77,3 +88,6 @@ services:
 
 volumes:
   static:
+  auth-db-data:
+  calendar-db-data:
+  email-db-data:
