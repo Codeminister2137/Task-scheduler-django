@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - auth-db-data:/var/lib/postgresql/data"
+      - auth-db-data:/var/lib/postgresql/data
 
   calendar-db:
     image: postgres:16

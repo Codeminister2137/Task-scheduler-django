@@ -1,18 +1,15 @@
 from django.test import TestCase
-from django.utils import timezone
-
-from ..calendar_app.models import Notification
+from django.contrib.auth import get_user_model
 
 
-class NotificationTest(TestCase):
-    def setUp(self):
-        test_tz_time = timezone.now()
-        Notification.objects.create(id=1, scheduled_for=test_tz_time, task_id=1)
+class UserModelTest(TestCase):
+    def test_user_can_be_created_with_email(self):
+        user = get_user_model().objects.create_user(
+            username="scheduler-user",
+            email="scheduler@example.com",
+            password="strong-test-password",
+        )
 
-    def test_notification_creation(self):
-        # ACT
-        example_notification = Notification.objects.get(id=1)
-        # ASSERT
-        self.assertTrue(isinstance(example_notification, Notification))
-        self.assertEqual(example_notification.id, 1)
-        self.assertTrue(timezone.is_aware(example_notification.scheduled_for))
+        self.assertEqual(user.username, "scheduler-user")
+        self.assertEqual(user.email, "scheduler@example.com")
+        self.assertTrue(user.check_password("strong-test-password"))

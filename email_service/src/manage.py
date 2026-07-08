@@ -4,7 +4,6 @@ import os
 import sys
 
 
-
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'conf.settings')
@@ -20,5 +19,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(sys.path)
     main()

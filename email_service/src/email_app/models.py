@@ -41,7 +41,7 @@ class EmailEvent(BaseModel):
     email = models.ForeignKey(Email, on_delete=models.CASCADE, related_name="events")
     timestamp = models.DateTimeField(auto_now_add=True)
     event_type = models.IntegerField(
-        max_length=20, choices=EventType.choices(), default=EventType.CREATED
+        choices=EventType.choices(), default=EventType.CREATED
     )
     changes = models.JSONField(null=True, blank=True)
 
